@@ -34,9 +34,9 @@ function App() {
         <div className="App">
             <div className="container">
                 <h1>Palindrome Checker</h1>
+                <PalindromeForm addPalindrome={addPalindrome} />
+                <PalindromeList palindromes={palindromes} />
             </div>
-            <PalindromeForm addPalindrome={addPalindrome} />
-            <PalindromeList palindromes={palindromes} />
         </div>
     )
 }

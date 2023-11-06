@@ -7,6 +7,11 @@ function PalindromeForm({ addPalindrome }) {
      // Define a state variable to store the response message
     const [message, setMessage] = useState("");
 
+    const handleChange = async (e) => {
+        setInput(e.target.value);
+        setMessage('');
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -28,30 +33,28 @@ function PalindromeForm({ addPalindrome }) {
     };
 
     return (
-        <div className="container">
-            <h2>Palindrome Form</h2>
-            <div className="row">
-                <div className="col-md-6">
-                    <form onSubmit={handleSubmit}>
-                        <div className="form-group">
-                            <label htmlFor="input">Enter a palindrome</label>
-                            <div className="input-group">
-                                <input
-                                    type="text"
-                                    className="form-control form-control-lg"
-                                    id="input"
-                                    value={input}
-                                    onChange={(e) => setInput(e.target.value)}
-                                    required
-                                />
-                                <button type="submit" className="btn btn-primary">
-                                    Submit
-                                </button>
-                            </div>
+        <div className="row">
+            <div className="col-md-6">
+                <h2>Palindrome Form</h2>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="input">Enter a palindrome</label>
+                        <div className="input-group">
+                            <input
+                                type="text"
+                                className="form-control form-control-lg"
+                                id="input"
+                                value={input}
+                                onChange={handleChange}
+                                required
+                            />
+                            <button type="submit" className="btn btn-primary">
+                                Submit
+                            </button>
                         </div>
-                    </form>
-                    <p>{message}</p>
-                </div>
+                    </div>
+                </form>
+                <p>{message}</p>
             </div>
         </div>
     );
