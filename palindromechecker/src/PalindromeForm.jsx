@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axios from "axios";
 
-const PalindromeForm = () => {
-    const [input, setInput] = useState('');
+function PalindromeForm({ addPalindrome }) {
+     // Define a state variable to store the user input
+    const [input, setInput] = useState("");
+     // Define a state variable to store the response message
     const [message, setMessage] = useState("");
-    //const [result, setResult] = useState(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -14,8 +15,9 @@ const PalindromeForm = () => {
             .post(`https://localhost:7236/api/palindrome?text=${input}`)
             .then((response) => {
                 // If the request is successful, set the message state variable with the response data
-                setMessage(`The palindrome ${response.data.text} was added successfully.`);
+                setMessage(`The palindrome "${response.data.text}" was added successfully.`);
                 console.log(response.data);
+                addPalindrome(response.data);
             })
             .catch((error) => {
                 // If the request fails, set the message state variable with the error message
@@ -27,24 +29,30 @@ const PalindromeForm = () => {
 
     return (
         <div className="container">
-            <h1>Palindrome Form</h1>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="input">Enter a palindrome</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="input"
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        required
-                    />
+            <h2>Palindrome Form</h2>
+            <div className="row">
+                <div className="col-md-6">
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <label htmlFor="input">Enter a palindrome</label>
+                            <div className="input-group">
+                                <input
+                                    type="text"
+                                    className="form-control form-control-lg"
+                                    id="input"
+                                    value={input}
+                                    onChange={(e) => setInput(e.target.value)}
+                                    required
+                                />
+                                <button type="submit" className="btn btn-primary">
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <p>{message}</p>
                 </div>
-                <button type="submit" className="btn btn-primary">
-                    Submit
-                </button>
-            </form>
-            <p>{message}</p>
+            </div>
         </div>
     );
 };
